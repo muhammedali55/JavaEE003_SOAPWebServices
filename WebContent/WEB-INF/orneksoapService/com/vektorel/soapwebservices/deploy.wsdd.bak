@@ -1,0 +1,34 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from orneksoapService WSDL service -->
+
+  <service name="orneksoap" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://soapwebservices.vektorel.com"/>
+      <parameter name="wsdlServiceElement" value="orneksoapService"/>
+      <parameter name="schemaQualified" value="http://soapwebservices.vektorel.com"/>
+      <parameter name="wsdlServicePort" value="orneksoap"/>
+      <parameter name="className" value="com.vektorel.soapwebservices.OrneksoapSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="orneksoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="toplama" qname="operNS:toplama" xmlns:operNS="http://soapwebservices.vektorel.com" returnQName="retNS:toplamaReturn" xmlns:retNS="http://soapwebservices.vektorel.com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:a" xmlns:pns="http://soapwebservices.vektorel.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:b" xmlns:pns="http://soapwebservices.vektorel.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="kelimebirlestir" qname="operNS:kelimebirlestir" xmlns:operNS="http://soapwebservices.vektorel.com" returnQName="retNS:kelimebirlestirReturn" xmlns:retNS="http://soapwebservices.vektorel.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:yaziA" xmlns:pns="http://soapwebservices.vektorel.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:yaziB" xmlns:pns="http://soapwebservices.vektorel.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="toplama kelimebirlestir"/>
+
+  </service>
+</deployment>
